@@ -1,0 +1,11 @@
+framework module OLOidc {
+  umbrella header "OLOidc.h"
+
+  export *
+  module * { export * }
+}
+
+module OLOidc.Swift {
+    header "OLOidc-Swift.h"
+    requires objc
+}

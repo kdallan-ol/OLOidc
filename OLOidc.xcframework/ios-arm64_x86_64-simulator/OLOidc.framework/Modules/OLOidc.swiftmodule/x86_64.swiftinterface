@@ -1,0 +1,136 @@
+// swift-interface-format-version: 1.0
+// swift-compiler-version: Apple Swift version 5.5.1 (swiftlang-1300.0.31.4 clang-1300.0.29.6)
+// swift-module-flags: -target x86_64-apple-ios13.2-simulator -enable-objc-interop -enable-library-evolution -swift-version 5 -enforce-exclusivity=checked -O -module-name OLOidc
+import Foundation
+@_exported import OLOidc
+import Swift
+import _Concurrency
+public enum HTTPMethod : Swift.String {
+  case get
+  case post
+  case put
+  public init?(rawValue: Swift.String)
+  public typealias RawValue = Swift.String
+  public var rawValue: Swift.String {
+    get
+  }
+}
+public typealias HTTPHeaders = [Swift.String : Swift.String]
+public typealias networkCallback = (_ data: Foundation.Data?, _ response: Foundation.URLResponse?, _ error: Swift.Error?) -> ()
+@_hasMissingDesignatedInitializers public class Router {
+  @objc deinit
+}
+public enum OLKeychainError : Swift.Error {
+  case wrongFormat
+  case failed(Swift.String)
+  case itemNotFound
+}
+@objc @_inheritsConvenienceInitializers public class OLOidcKeychain : ObjectiveC.NSObject {
+  public class func set(key: Swift.String, value: Swift.String, accessGroup: Swift.String? = nil, accessibility: CoreFoundation.CFString? = nil) throws
+  public class func set(key: Swift.String, data: Foundation.Data, accessGroup: Swift.String? = nil, accessibility: CoreFoundation.CFString? = nil) throws
+  public class func get(key: Swift.String) throws -> Swift.String
+  public class func get(key: Swift.String) throws -> Foundation.Data
+  public class func remove(key: Swift.String) throws
+  @objc override dynamic public init()
+  @objc deinit
+}
+public enum OLOidcError : Swift.Error, Swift.Equatable {
+  case configFileNotFound
+  case configFileParseFailure
+  case configInvalid
+  case missingConfiguration
+  case tokenEndpointUndeclared
+  case userEndpointUndeclared
+  case fetchingFreshTokenError(Swift.String)
+  case gettingAccessTokenError
+  case httpRequestFailed(Swift.String)
+  case nonHttpResponse
+  case noResponseData
+  case jsonSerializationError
+  case authorizationError(Swift.String)
+  case unknownError
+  public static func == (a: OLOidcError, b: OLOidcError) -> Swift.Bool
+}
+extension OLOidcError : Foundation.LocalizedError {
+  public var errorDescription: Swift.String? {
+    get
+  }
+}
+@objc open class OLOidcAuthState : ObjectiveC.NSObject {
+  @objc open var authState: OIDAuthState? {
+    @objc get
+    @objc set
+  }
+  @objc open var configuration: OIDServiceDiscovery?
+  @objc open var accessibility: CoreFoundation.CFString
+  @objc open var accessToken: Swift.String? {
+    @objc get
+  }
+  @objc open var idToken: Swift.String? {
+    @objc get
+  }
+  @objc open var idTokenParsed: OIDIDToken? {
+    @objc get
+  }
+  @objc open var refreshToken: Swift.String? {
+    @objc get
+  }
+  @objc open var tokenEndpoint: Foundation.URL? {
+    @objc get
+  }
+  @objc open var userInfoEndpoint: Foundation.URL? {
+    @objc get
+  }
+  @objc public init(oidcConfig: OLOidcConfig, useSecureStorage: Swift.Bool = true, accessibility: CoreFoundation.CFString = kSecAttrAccessibleWhenUnlockedThisDeviceOnly)
+  @objc public func readFromKeychain() -> OIDAuthState?
+  @objc public func writeToKeychain()
+  @objc public func deleteFromKeychain()
+  @objc deinit
+}
+@objc public enum TokenType : Swift.Int {
+  case AccessToken = 0
+  case RefreshToken = 1
+  public init?(rawValue: Swift.Int)
+  public typealias RawValue = Swift.Int
+  public var rawValue: Swift.Int {
+    get
+  }
+}
+@objc public class OLOidc : ObjectiveC.NSObject {
+  @objc final public let oidcConfig: OLOidcConfig
+  @objc public var olAuthState: OLOidcAuthState
+  @objc public var currentAuthorizationFlow: OIDExternalUserAgentSession?
+  @objc public init(configuration: OLOidcConfig? = nil, useSecureStorage: Swift.Bool = true) throws
+  @objc public func signIn(presenter: UIKit.UIViewController, callback: @escaping ((Swift.Error?) -> Swift.Void))
+  @objc public func deleteTokens()
+  @objc public func revokeToken(tokenType: TokenType, callback: @escaping ((Swift.Error?) -> Swift.Void))
+  @objc public func introspect(callback: @escaping ((Swift.Bool, Swift.Error?) -> Swift.Void))
+  @objc public func getUserInfo(callback: @escaping (([Swift.AnyHashable : Any]?, Swift.Error?) -> Swift.Void))
+  @objc public func refreshAccessToken(callback: @escaping ((Swift.Error?) -> Swift.Void))
+  @objc deinit
+}
+public enum Endpoint {
+  case revoke(tokenEndpoint: Foundation.URL, accessToken: Swift.String, clientId: Swift.String)
+  case introspect(tokenEndpoint: Foundation.URL, accessToken: Swift.String, clientId: Swift.String)
+}
+@objc public class OLOidcConfig : ObjectiveC.NSObject, Swift.Codable {
+  @objc public static let stdConfigName: Swift.String
+  @objc final public let clientId: Swift.String
+  @objc final public let issuer: Swift.String
+  @objc final public let redirectUri: Foundation.URL
+  @objc final public let loginUrl: Foundation.URL?
+  @objc final public let additionalParameters: [Swift.String : Swift.String]?
+  @objc public static func standard() throws -> OLOidcConfig
+  @objc public init(dict: [Swift.String : Swift.String]) throws
+  @objc convenience public init(plist: Swift.String) throws
+  @objc public func getScopes() -> [Swift.String]
+  @objc deinit
+  public func encode(to encoder: Swift.Encoder) throws
+  required public init(from decoder: Swift.Decoder) throws
+}
+extension HTTPMethod : Swift.Equatable {}
+extension HTTPMethod : Swift.Hashable {}
+extension HTTPMethod : Swift.RawRepresentable {}
+extension TokenType : Swift.Equatable {}
+extension TokenType : Swift.Hashable {}
+extension TokenType : Swift.RawRepresentable {}
