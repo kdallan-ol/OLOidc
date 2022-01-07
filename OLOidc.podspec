@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'OLOidc'
-  s.version          = '1.0.1'
+  s.version          = '1.0.2'
   s.summary          = 'OneLogin OpenID Connect provider xclibrary.'
   s.description      = <<-DESC
   This xclibrary is used for AppAuth code to communicate with OneLogin as an OpenID Connect provider. It supports Auth Code Flow + PKCE which is recommended for native apps.
