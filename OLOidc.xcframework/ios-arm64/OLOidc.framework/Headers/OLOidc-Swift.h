@@ -220,7 +220,9 @@ SWIFT_CLASS("_TtC6OLOidc6OLOidc")
 @property (nonatomic, readonly, strong) OLOidcConfig * _Nonnull oidcConfig;
 @property (nonatomic, strong) OLOidcAuthState * _Nonnull olAuthState;
 @property (nonatomic, strong) id <OIDExternalUserAgentSession> _Nullable currentAuthorizationFlow;
+@property (nonatomic) BOOL ephemeralSession;
 - (nullable instancetype)initWithConfiguration:(OLOidcConfig * _Nullable)configuration useSecureStorage:(BOOL)useSecureStorage error:(NSError * _Nullable * _Nullable)error OBJC_DESIGNATED_INITIALIZER;
+- (void)setEphemeralSessionWithEphemeral:(BOOL)ephemeral;
 - (void)signInPresenter:(UIViewController * _Nonnull)presenter callback:(void (^ _Nonnull)(NSError * _Nullable))callback;
 - (void)deleteTokens;
 - (void)revokeTokenWithTokenType:(enum TokenType)tokenType callback:(void (^ _Nonnull)(NSError * _Nullable))callback;

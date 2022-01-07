@@ -100,7 +100,9 @@ extension OLOidc.OLOidcError : Foundation.LocalizedError {
   @objc final public let oidcConfig: OLOidc.OLOidcConfig
   @objc public var olAuthState: OLOidc.OLOidcAuthState
   @objc public var currentAuthorizationFlow: OLOidc.OIDExternalUserAgentSession?
+  @objc public var ephemeralSession: Swift.Bool
   @objc public init(configuration: OLOidc.OLOidcConfig? = nil, useSecureStorage: Swift.Bool = true) throws
+  @objc public func setEphemeralSession(ephemeral: Swift.Bool)
   @objc public func signIn(presenter: UIKit.UIViewController, callback: @escaping ((Swift.Error?) -> Swift.Void))
   @objc public func deleteTokens()
   @objc public func revokeToken(tokenType: OLOidc.TokenType, callback: @escaping ((Swift.Error?) -> Swift.Void))
